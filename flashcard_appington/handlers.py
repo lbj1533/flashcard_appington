@@ -156,7 +156,7 @@ class FileHandler:
             PrintHandler.print_exception(
                 'Usage: python Swedish\\flashcards\\flashcards.py "filename"'
             )
-            quit()
+            sys.exit(0)
         elif len(sys.argv) == 2:
             filename = sys.argv[1]
             filename = FileHandler.handle_file_system(filename)
@@ -334,7 +334,7 @@ class CardHandler:
                 continue
             except KeyboardInterrupt:
                 PrintHandler.print_notice("Exiting...")
-                quit()
+                sys.exit(0)
 
             # First check: only one call here
             if not CardHandler.verify_answer(attempt, card[definition], settings):
@@ -409,7 +409,7 @@ class IOHandler:
                     PrintHandler.print_exception("Enter Y or N.")
             except (KeyboardInterrupt, EOFError):
                 print("\nExiting...")
-                quit()
+                sys.exit(0)
 
     @staticmethod
     def handle_integer_input(message, lower_bound, upper_bound):
@@ -442,7 +442,7 @@ class IOHandler:
             return IOHandler.handle_integer_input(message, lower_bound, upper_bound)
         except (KeyboardInterrupt, EOFError):
             print("\nExiting...")
-            quit()
+            sys.exit(0)
 
     @staticmethod
     def handle_choose_input(message, lower_bound, upper_bound, escape_char) -> Optional[int]:
@@ -480,7 +480,7 @@ class IOHandler:
                 )
             except (KeyboardInterrupt, EOFError):
                 print("\nExiting...")
-                quit()
+                sys.exit(0)
 
     @staticmethod
     def write_last_score_to_file(score, filename):
@@ -545,7 +545,7 @@ class MenuHandler:
             (
                 CardHandler.display_cards(cards, 0, filename, settings)
                 if repeat
-                else quit()
+                else sys.exit(0)
             )
 
     @staticmethod
@@ -559,12 +559,32 @@ class MenuHandler:
         Returns:
             str: The path to the selected file.
         """
-        files = FileHandler.list_files(directory)
-        PrintHandler.print_list(files)
+        # Determine if the app is running as a bundle (i.e., with PyInstaller)
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS  # Temporary folder where PyInstaller stores files
+        else:
+            base_path = os.path.abspath(".")
+
+        # Construct the full path to the desired directory
+        full_directory_path = os.path.join(base_path, directory)
+
+        # List files in the full directory path
+        files = FileHandler.list_files(full_directory_path)
+
+        # Generate relative paths for display
+        relative_paths = [os.path.relpath(file, base_path).replace("flashcards/", "", 1) for file in files]
+
+        # Print the list of relative paths for user selection
+        PrintHandler.print_list(relative_paths)
+
+        # Handle the user's file selection
         selection = IOHandler.handle_integer_input(
             "Choose file to study: ", 1, len(files) + 1
         )
+
+        # Return the full path to the selected file
         return files[selection - 1]
+
 
 
 class PrintHandler:
