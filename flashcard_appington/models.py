@@ -35,4 +35,4 @@ class Settings:
         Returns:
             list: Default settings list.
         """
-        return [["Language Mode", False], ["Shuffle Mode", True]]
+        return [["Language Mode", False], ["Shuffle Mode", True], ["Require Exact Answer", False]]

@@ -319,39 +319,69 @@ class CardHandler:
 
         Recursively displays wrong answers.
         """
-        if settings[0][1]:
-            term = 1
-            definition = 0
-        else:
-            term = 0
-            definition = 1
+        term, definition = (1, 0) if settings[0][1] else (0, 1)
+        
         if settings[1][1]:
             random.shuffle(cards)
+
         wrong_answers = []
+
         for card in cards:
             try:
-                attempt = input("\r" + card[term] + "\n")
+                attempt = input(f"\r{card[term]}\n")
             except IndexError:
-                PrintHandler.print_exception("Index error: card: " + str(card))
-            if not attempt == card[definition]:
+                PrintHandler.print_exception(f"Index error: card: {card}")
+                continue
+            except KeyboardInterrupt:
+                PrintHandler.print_notice("Exiting...")
+                quit()
+
+            # First check: only one call here
+            if not CardHandler.verify_answer(attempt, card[definition], settings):
                 wrong_answers.append(card)
-                att2 = ""
-                while att2 != card[definition]:
-                    print(f"Type the correct answer: {card[definition]} : ", end="")
-                    att2 = input()
-                    if att2 != card[definition]:
-                        print("\033[F\033[K", end="")
-            print("\033[2J")
-        if len(wrong_answers) > 0:
+
+                # Initialize att2 with the initial attempt that was wrong
+                att2 = attempt
+                
+                # Loop to keep asking until the user provides the correct answer
+                while not CardHandler.verify_answer(att2, card[definition], settings):
+                    print("\033[F\033[K", end="")  # Moves cursor up one line and clears
+                    att2 = input(f"Type the correct answer: {card[definition]} : ")
+
+            print("\033[2J", end="")  # Clears screen
+
+        # Handles wrong answer logic, recursive
+        if wrong_answers:
             print("Wrong answers:")
             time.sleep(2)
-            CardHandler.display_cards(
-                wrong_answers, attempt_number + 1, filename, settings
-            )
+            CardHandler.display_cards(wrong_answers, attempt_number + 1, filename, settings)
+        
+        # Handles scoring logic
         if attempt_number == 0:
             score = MathHandler.calc_last_score(len(wrong_answers), len(cards))
             print(f"Score: {score}%")
             IOHandler.write_last_score_to_file(score, filename)
+
+
+
+
+    def verify_answer(answer, expected, settings):
+        '''
+        Handles verifying the answer. Returns true if answer is correct, false if not.
+        Behavior can be altered using settings.
+
+        Args:
+            answer (str): the user's answer
+            expected (str): the expected value to compare
+            settings (list): the list of app settings
+        '''
+        answer = answer.strip().lower()
+        expected = expected.strip().lower()
+
+        if not settings[2][1] and len(expected.split()) > 2:
+            return MathHandler.jaccard_similarity(answer, expected) > 0.8
+        else:
+            return answer == expected
 
 
 class IOHandler:
@@ -597,3 +627,24 @@ class MathHandler:
             int: The score as a percentage.
         """
         return round((num_total - num_wrong) / num_total * 100)
+    
+    @staticmethod
+    def jaccard_similarity(a, b):
+        """
+        Calculates the Jaccard Similarity score based on characters between two strings
+
+        Args:
+            a (str): the first string to be compared
+            b (str): the second string to be compared
+        
+        Returns:
+            int: a normalized ratio of similarity between a and b
+        """
+        set_a, set_b = set(a), set(b)
+        union = set_a.union(set_b)
+        intersection = set_a.intersection(set_b)
+        if len(union) == 0:
+            similarity = 0
+        else:
+            similarity = len(intersection)/len(union)
+        return similarity
