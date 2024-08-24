@@ -13,3 +13,15 @@
 
 4. Run the application
     python -m flashcard_appington.main
+
+5. Create Flashcards
+
+    This project requires a `flashcards` directory where you can store your own flashcard files. Create a directory structure similar to the one below:
+    
+    flashcards/ 
+    ├── language1/ 
+    │   ├── topic1/ 
+    │   ├── topic2/ 
+    └── language2/ 
+        ├── topic1/ 
+        └── topic2/
