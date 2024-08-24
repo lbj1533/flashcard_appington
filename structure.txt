@@ -1,0 +1,31 @@
+flashcard_appington/
+|---flashcard_appington/
+    |---__pycache__/
+    |---__init__.py
+    |---handlers.py
+    |---main.py
+    |---models.py
+|---flashcards
+    |---swedish
+        |---Duolingo
+            |---s1.txt
+            |---s3.txt
+            |---s5.txt
+            |---s6.txt
+            |---s7.txt
+            |---s7fraser.txt
+            |---s8.txt
+            |---s9.txt
+            |---s9fraser.txt
+            |---s10.txt
+        |---Swedish I & II
+            |---1.1
+            |---1.2
+            |---2.1
+|---tests
+|---venv
+|---.gitignore
+|---README.md
+|---requirements.txt
+|---setup.py
+|---structure.txt

@@ -1,9 +1,78 @@
+# Ignore flashcards
+flashcards/
+
 # Ignore virtual environment folder
 venv/
+ENV/
+env/
+env.bak/
+venv.bak/
 
 # Ignore macOS system files
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Ignore Linux system files
+*~
+.nfs*
 
 # Python cache files
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Python-specific logs and compiled files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.egg
+*.egg-info/
+dist/
+build/
+*.eggs/
+*.wheel/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore IDEs and text editor specific settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignore system swap files
+*.swp
+*.swo
+*~
+
+# Ignore temporary files created by editors
+*.bak
+*.tmp
+
+# Ignore temporary files created by other tools
+*.coverage
+*.mypy_cache/
+*.hypothesis/
+.tox/
+.nox/
+
+# Ignore database files
+*.sqlite3
+
+# Ignore virtual environment files for different tools
+Pipfile.lock
+poetry.lock
