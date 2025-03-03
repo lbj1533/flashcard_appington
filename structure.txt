@@ -1,0 +1,56 @@
+flashcard_appington/
+|---build/
+    |---localpycs/
+        |---pyimod01_archive.pyc
+        |---pyimod02_importers.pyc
+        |---pyimod03_ctypes.pyc
+        |---struct.pyc
+    |---Analysis-00.toc
+    |---base_library.zip
+    |---EXE-00.toc
+    |---main.pkg
+    |---PKG-00.toc
+    |---PYZ-00.pyz
+    |---PYZ-00.toc
+    |---warn-main.txt
+    |---xref-main.html
+|---dist/
+    |---main
+|---flashcard_appington/
+    |---__pycache__/
+        |---__init__.cpython-311.pyc
+        |---handlers.cpython-311.pyc
+        |---models.cpython-311.pyc
+    |---__init__.py
+    |---handlers.py
+    |---main.py
+    |---models.py
+|---flashcards
+    |---swedish
+        |---Duolingo
+            |---s1.txt
+            |---s3.txt
+            |---s5.txt
+            |---s6.txt
+            |---s7.txt
+            |---s7fraser.txt
+            |---s8.txt
+            |---s9.txt
+            |---s9fraser.txt
+            |---s10.txt
+        |---Swedish I & II
+            |---1.1
+            |---1.2
+            |---2.1
+|---tests/
+|---venv/
+    |---bin/
+    |---include/
+    |---lib/
+    |---pyvenv.cfg
+|---.gitignore
+|---LICENSE.txt
+|---MANIFEST.in
+|---README.md
+|---requirements.txt
+|---setup.py

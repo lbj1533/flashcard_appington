@@ -1,0 +1,6 @@
+ - test python versions with venv
+ - sdist bdist_wheel
+ - twine
+ - poetry
+
+ - pyinstaller

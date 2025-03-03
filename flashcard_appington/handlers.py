@@ -379,7 +379,10 @@ class CardHandler:
         expected = expected.strip().lower()
 
         if not settings[2][1] and len(expected.split()) > 2:
-            return MathHandler.jaccard_similarity(answer, expected) > 0.8
+            similarity_score = MathHandler.jaccard_similarity(answer, expected)
+            print("Jaccard Similarity:", similarity_score)
+            time.sleep(1)
+            return similarity_score > 0.8
         else:
             return answer == expected
 

@@ -23,7 +23,7 @@ class CardSet:
         Args:
             settings (list): A list of user settings.
         """
-        CardHandler.display_cards(self.cards, 0, self.file_path, settings)
+        return CardHandler.display_cards(self.cards, 0, self.file_path, settings)
 
 
 class Settings:
@@ -35,4 +35,4 @@ class Settings:
         Returns:
             list: Default settings list.
         """
-        return [["Language Mode", False], ["Shuffle Mode", True], ["Require Exact Answer", False]]
+        return [["Language Mode", True], ["Shuffle Mode", True], ["Require Exact Answer", False]]
