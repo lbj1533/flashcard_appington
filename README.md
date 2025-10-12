@@ -18,10 +18,10 @@
 
     This project requires a `flashcards` directory where you can store your own flashcard files. Create a directory structure similar to the one below:
     
-    flashcards/ <br>
-    ├── language1/ <br>
-    │   ├── topic1/ <br>
-    │   ├── topic2/ <br>
-    └── language2/ <br>
-        ├── topic1/ <br>
-        └── topic2 /<br>
+    flashcards/       <br>
+    ├── language1/    <br>
+    │   ├── topic1/   <br>
+    │   ├── topic2/   <br>
+    └── language2/    <br>
+        ├── topic1/   <br>
+        └── topic2/   <br>
